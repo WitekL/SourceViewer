@@ -9,5 +9,12 @@ public class ViewSource extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_source);
+
+        //TODO view the source of a webpage
+        //TODO set the connection and get data using Volley
+        //TODO parse the HTML code
+        //TODO create a table in the database
+        //TODO save the raw string obtained from Volley to the database
+        //TODO handle any errors
     }
 }

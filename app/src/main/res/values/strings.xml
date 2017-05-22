@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">"Source Viewer "</string>
+    <string name="Download">Pobierz</string>
+    <string name="URLhint">Tu wpisz adres URL</string>
+</resources>

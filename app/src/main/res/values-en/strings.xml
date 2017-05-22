@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">\"Source Viewer \"</string>
+    <string name="Download">Download</string>
+    <string name="URLhint">Enter the URL</string>
+</resources>

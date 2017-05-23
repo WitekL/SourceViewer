@@ -10,6 +10,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 public class ViewSource extends AppCompatActivity {
 
     TextView dispUrl;
@@ -28,7 +31,9 @@ public class ViewSource extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                dispUrl.setText(response);
+                Document doc = Jsoup.parse(response);
+                dispUrl.setText(doc.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -43,8 +48,8 @@ public class ViewSource extends AppCompatActivity {
 
 
 
-        
-        //TODO parse the HTML code
+
+
         //TODO create a table in the database
         //TODO save the raw string obtained from Volley to the database
         //TODO handle any errors

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,36 +33,46 @@ public class ViewSource extends AppCompatActivity {
         Intent intent = getIntent();
         final String url = intent.getExtras().getString("address");
 
+        if(!dbHelper.search(url)) {
+            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    PageModel page = new PageModel(null, null);
+                    page.setAddres(url);
+                    page.setSource(response);
+                    dbHelper.addSource(page);
+                    Document doc = Jsoup.parse(response);
+                    progressBar.setVisibility(View.GONE);
+                    dispUrl.setText(doc.toString());
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                PageModel page = new PageModel(null, null);
-                page.setAddres(url);
-                page.setSource(response);
-                dbHelper.addSource(page);
-                Document doc = Jsoup.parse(response);
-                progressBar.setVisibility(View.GONE);
-                dispUrl.setText(doc.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    dispUrl.setText("w8 w8 w8, somtink ronk");
+                    error.printStackTrace();
+                }
+            });
+            ConnectionHelper.getInstance(this).getRequestQueue().add(request);
+        }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dispUrl.setText("w8 w8 w8, somtink ronk");
-                error.printStackTrace();
-            }
-        });
+        else{
+            PageModel page = dbHelper.getSource(url);
+            Document doc = Jsoup.parse(page.getSource());
+            progressBar.setVisibility(View.GONE);
+            dispUrl.setText(doc.toString());
 
-
-        ConnectionHelper.getInstance(this).getRequestQueue().add(request);
+        }
 
 
 
 
 
-        
-        //TODO save the raw string obtained from Volley to the database
+
+
+
+
+       
         //TODO handle any errors
 
     }

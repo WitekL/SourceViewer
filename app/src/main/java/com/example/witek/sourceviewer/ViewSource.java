@@ -37,7 +37,7 @@ public class ViewSource extends AppCompatActivity {
             StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    PageModel page = new PageModel(null, null);
+                    PageModel page = new PageModel(null, null); //TODO use constructor instead of setters
                     page.setAddres(url);
                     page.setSource(response);
                     dbHelper.addSource(page);
@@ -72,7 +72,7 @@ public class ViewSource extends AppCompatActivity {
 
 
 
-       
+
         //TODO handle any errors
 
     }

@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // TODO get the URL and send it via intent to the next activity
     }
 
 

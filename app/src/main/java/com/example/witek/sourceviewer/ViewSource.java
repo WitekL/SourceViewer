@@ -1,14 +1,25 @@
 package com.example.witek.sourceviewer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class ViewSource extends AppCompatActivity {
 
+    TextView dispUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_source);
+
+        dispUrl  = (TextView) findViewById(R.id.displayUrl);
+
+        Intent intent = getIntent();
+        String url = intent.getExtras().getString("address");
+
+        dispUrl.setText(url);
+
 
         //TODO view the source of a webpage
         //TODO set the connection and get data using Volley

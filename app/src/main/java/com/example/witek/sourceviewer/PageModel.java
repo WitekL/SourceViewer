@@ -6,7 +6,6 @@ package com.example.witek.sourceviewer;
 
 public class PageModel {
 
-    int id;
     String address;
     String source;
 
@@ -15,13 +14,6 @@ public class PageModel {
         this.source = source;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getAddress() {
         return address;

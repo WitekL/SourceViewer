@@ -27,12 +27,19 @@ public class ViewSource extends AppCompatActivity {
         dispUrl  = (TextView) findViewById(R.id.displayUrl);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+        final DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
 
         Intent intent = getIntent();
-        String url = intent.getExtras().getString("address");
+        final String url = intent.getExtras().getString("address");
+
+
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                PageModel page = new PageModel(null, null);
+                page.setAddres(url);
+                page.setSource(response);
+                dbHelper.addSource(page);
                 Document doc = Jsoup.parse(response);
                 progressBar.setVisibility(View.GONE);
                 dispUrl.setText(doc.toString());
@@ -53,9 +60,9 @@ public class ViewSource extends AppCompatActivity {
 
 
 
-        //TODO create a table in the database
+        
         //TODO save the raw string obtained from Volley to the database
         //TODO handle any errors
-        
+
     }
 }

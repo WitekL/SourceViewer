@@ -44,8 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.getCount()>0){
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                pageModel.setAddres(cursor.getString(1));
-                pageModel.setSource(cursor.getString(2));
+                pageModel.set(cursor.getString(1), cursor.getString(2));
                 cursor.moveToNext();
             }
         }

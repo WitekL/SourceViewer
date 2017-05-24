@@ -9,8 +9,14 @@ public class PageModel {
     String address;
     String source;
 
-    public PageModel(String addres, String source) {
-        this.address = addres;
+    public PageModel(String address, String source) {
+        this.address = address;
+        this.source = source;
+    }
+
+
+    public void set(String address, String source) {
+        this.address = address;
         this.source = source;
     }
 
@@ -19,15 +25,9 @@ public class PageModel {
         return address;
     }
 
-    public void setAddres(String addres) {
-        this.address = addres;
-    }
 
     public String getSource() {
         return source;
     }
 
-    public void setSource(String source) {
-        this.source = source;
-    }
 }

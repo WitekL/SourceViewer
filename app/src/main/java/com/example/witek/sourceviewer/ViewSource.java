@@ -37,9 +37,7 @@ public class ViewSource extends AppCompatActivity {
             StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    PageModel page = new PageModel(null, null); //TODO use constructor instead of setters
-                    page.setAddres(url);
-                    page.setSource(response);
+                    PageModel page = new PageModel(url, response);
                     dbHelper.addSource(page);
                     Document doc = Jsoup.parse(response);
                     progressBar.setVisibility(View.GONE);

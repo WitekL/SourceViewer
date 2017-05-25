@@ -23,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
         sendUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String address = url.getText().toString();
+                String addressInitial = url.getText().toString();
+                String address = "";
+
+                if(!(addressInitial.substring(0, 7).equals("http://"))){
+                   address = "http://" + addressInitial;
+                }
+                else address = addressInitial;
+
                 Intent intent = new Intent(getApplicationContext(), ViewSource.class);
                 intent.putExtra("address", address);
                 startActivity(intent);

@@ -8,8 +8,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
@@ -33,6 +35,8 @@ public class ViewSource extends AppCompatActivity {
         Intent intent = getIntent();
         final String url = intent.getExtras().getString("address");
 
+
+
         if(!dbHelper.search(url)) {
             StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
@@ -47,8 +51,15 @@ public class ViewSource extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    dispUrl.setText("w8 w8 w8, somtink ronk");
-                    error.printStackTrace();
+                    if(error instanceof TimeoutError || error instanceof NoConnectionError){
+                        Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        dispUrl.setText("HTTP status: " + error.networkResponse.statusCode);
+                        progressBar.setVisibility(View.GONE);
+                    }
                 }
             });
             ConnectionHelper.getInstance(this).getRequestQueue().add(request);
@@ -61,17 +72,6 @@ public class ViewSource extends AppCompatActivity {
             dispUrl.setText(doc.toString());
 
         }
-
-
-
-
-
-
-
-
-
-
-        //TODO handle any errors
 
     }
 }
